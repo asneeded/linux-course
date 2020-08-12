@@ -21,7 +21,7 @@ share='/mnt/server-share'
 
 # Update System
 if ping -c 2 8.8.8.8;then
-    apt-get update && apt-get upgrade -y
+    yum update && yum upgrade -y
 fi
 
 
@@ -45,9 +45,11 @@ if [[ -f /etc/exports ]];then
         systemctl enable --now nfs
         sysemtclt restart nfs
     if ping -c 2 8.8.8.8 ;then
+        yum install wget -y 
         wget -O ${share}/linux-cheatsheet00.pdf http://images.linoxide.com/linux-cheat-sheet.pdf
         wget -O ${share}/linux-cheatsheet01.pdf https://www.loggly.com/wp-content/uploads/2015/05/Linux-Cheat-Sheet-Sponsored-By-Loggly.pdf
         wget -O ${share}/linux-cheatsheet02.pdf https://learncodethehardway.org/unix/bash_cheat_sheet.pdf
+        wget -O ${share}/bash.md https://raw.githubusercontent.com/rstacruz/cheatsheets/master/bash.md
     fi
 fi
 
