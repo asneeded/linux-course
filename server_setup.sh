@@ -43,13 +43,14 @@ if [[ -f /etc/exports ]];then
         iptables -I INPUT -p tcp -m multiport --dport 111,2049,20048 --comment "NFS/mountd Ports TCP" -j ACCEPT
         iptables -I INPUT -p udp -m multiport --dport 111,2049,20048 --comment 'NFS/mountd Ports UDP' -j ACCEPT
         systemctl enable --now nfs
-        sysemtclt restart nfs
+        sysemtctl restart nfs
     if ping -c 2 8.8.8.8 ;then
         yum install wget -y 
         wget -O ${share}/linux-cheatsheet00.pdf http://images.linoxide.com/linux-cheat-sheet.pdf
         wget -O ${share}/linux-cheatsheet01.pdf https://www.loggly.com/wp-content/uploads/2015/05/Linux-Cheat-Sheet-Sponsored-By-Loggly.pdf
         wget -O ${share}/linux-cheatsheet02.pdf https://learncodethehardway.org/unix/bash_cheat_sheet.pdf
         wget -O ${share}/bash.md https://raw.githubusercontent.com/rstacruz/cheatsheets/master/bash.md
+    fi
     fi
 fi
 
