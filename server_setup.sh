@@ -39,7 +39,8 @@ if [[ -f /etc/exports ]];then
     if grep $share /etc/exports; then
         echo ''
     else
-        printf "$share 0.0.0.0/0(rw,sync) #Server share\n" >> /etc/exports
+        printf "$share *(rw,sync) #Server share\n" >> /etc/exports
+        exportfs -ra
         iptables -I INPUT -p tcp -m multiport --dport 111,2049,20048 --comment "NFS/mountd Ports TCP" -j ACCEPT
         iptables -I INPUT -p udp -m multiport --dport 111,2049,20048 --comment 'NFS/mountd Ports UDP' -j ACCEPT
         systemctl enable --now nfs
