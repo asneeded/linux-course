@@ -41,8 +41,9 @@ if [[ -f /etc/exports ]];then
     else
         printf "$share *(rw,sync) #Server share\n" >> /etc/exports
         exportfs -ra
-        iptables -I INPUT -p tcp -m multiport --dport 111,2049,20048 --comment "NFS/mountd Ports TCP" -j ACCEPT
-        iptables -I INPUT -p udp -m multiport --dport 111,2049,20048 --comment 'NFS/mountd Ports UDP' -j ACCEPT
+        sysemtctl disable --now firewalld
+        iptables -I INPUT -p tcp -m multiport --dport 111,2049,20048 -m comment --comment "NFS/mountd Ports TCP" -j ACCEPT
+        iptables -I INPUT -p udp -m multiport --dport 111,2049,20048 -m comment --comment 'NFS/mountd Ports UDP' -j ACCEPT
         systemctl enable --now nfs
         sysemtctl restart nfs
     if ping -c 2 8.8.8.8 ;then
