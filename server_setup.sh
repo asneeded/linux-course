@@ -35,7 +35,7 @@ if ! grep $account /etc/passwd ;then
 fi
 
 # Setup NFS
-yum install nfs-server nfs-utils
+yum install nfs-server nfs-utils -y
 if [[ -f /etc/exports ]];then
     printf "Setting up NFS\n"
     if [[ ! -d $share ]];then
